@@ -1,0 +1,571 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=IBM+Plex+Mono:wght@500;600&family=Inter:wght@400;500;600&display=swap');
+
+:root {
+  --paper: #F7F4EE;
+  --paper-alt: #F1ECE2;
+  --ink: #211A15;
+  --text-muted: #7C7062;
+  --red: #A80F27;
+  --red-soft: rgba(168, 15, 39, 0.08);
+  --wood-light: #D8B382;
+  --wood-mid: #B98A54;
+  --wood-dark: #7A5A34;
+  --wood-gap: #1C140D;
+  --line: rgba(33, 26, 21, 0.14);
+  --line-strong: rgba(33, 26, 21, 0.34);
+  --ok: #2F7D4F;
+  --radius: 2px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  color: var(--ink);
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  background-color: var(--paper);
+  background-image: url("/img/plaster-texture.jpg");
+  background-repeat: repeat;
+  background-size: 740px 740px;
+  position: relative;
+  min-height: 100vh;
+}
+
+/* la photo de platre est utilisee telle quelle ; ce voile eclaircit legerement
+   pour garder le texte bien lisible par-dessus */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background: rgba(247, 244, 238, 0.5);
+}
+
+h1, h2, h3, .display {
+  font-family: 'Oswald', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin: 0;
+  color: var(--ink);
+}
+
+code, .mono, .stamp, .badge, .code-tag {
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+a { color: inherit; }
+
+/* ---------- tasseaux de bois : le "signature element" ---------- */
+.wood-band {
+  position: relative;
+  background-color: var(--wood-mid);
+  background-image:
+    repeating-linear-gradient(97deg, rgba(255,255,255,0.10) 0px, rgba(255,255,255,0.10) 1px, transparent 1px, transparent 3px),
+    repeating-linear-gradient(88deg, rgba(0,0,0,0.10) 0px, rgba(0,0,0,0.10) 1px, transparent 1px, transparent 4px),
+    repeating-linear-gradient(90deg, var(--wood-gap) 0px, var(--wood-gap) 3px, var(--wood-light) 3px, var(--wood-mid) 18px, var(--wood-dark) 34px, var(--wood-mid) 37px);
+  box-shadow: inset 0 -18px 24px -18px rgba(0,0,0,0.5), inset 0 4px 10px -6px rgba(0,0,0,0.35);
+}
+
+/* ---------- panneau a coins fins (HUD discret) ---------- */
+.hud-panel {
+  position: relative;
+  background: #fff;
+  border: 1px solid var(--line);
+  box-shadow: 0 1px 2px rgba(33,26,21,0.04);
+}
+.hud-panel::before {
+  content: "";
+  position: absolute;
+  top: -1px; left: -1px;
+  width: 14px; height: 14px;
+  border-top: 2px solid var(--red);
+  border-left: 2px solid var(--red);
+}
+.hud-panel::after {
+  content: "";
+  position: absolute;
+  bottom: -1px; right: -1px;
+  width: 14px; height: 14px;
+  border-bottom: 2px solid var(--red);
+  border-right: 2px solid var(--red);
+}
+.hud-panel .hud-c2 { position: absolute; inset: 0; pointer-events: none; }
+.hud-panel .hud-c2::before {
+  content: "";
+  position: absolute;
+  top: -1px; right: -1px;
+  width: 14px; height: 14px;
+  border-top: 2px solid var(--line-strong);
+  border-right: 2px solid var(--line-strong);
+}
+.hud-panel .hud-c2::after {
+  content: "";
+  position: absolute;
+  bottom: -1px; left: -1px;
+  width: 14px; height: 14px;
+  border-bottom: 2px solid var(--line-strong);
+  border-left: 2px solid var(--line-strong);
+}
+
+/* ---------- header : mur d'accueil en tasseaux de bois ---------- */
+.site-header {
+  position: relative;
+  z-index: 1;
+  color: #fff;
+  padding: 26px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.brand {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+.brand .code-tag {
+  color: #fff;
+  background: var(--red);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  padding: 3px 7px;
+}
+.brand h1 { font-size: 1.4rem; color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,0.5); }
+.brand small {
+  display: block;
+  color: rgba(255,255,255,0.75);
+  font-size: 0.68rem;
+  letter-spacing: 0.15em;
+  font-family: 'IBM Plex Mono', monospace;
+  margin-top: 2px;
+}
+
+.user-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.9rem;
+  color: #fff;
+}
+.user-box img {
+  width: 32px; height: 32px; border-radius: 50%;
+  border: 2px solid var(--red);
+}
+
+/* ---------- boutons ---------- */
+.btn {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.82rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border: none;
+  padding: 12px 22px;
+  cursor: pointer;
+  border-radius: var(--radius);
+  transition: transform 0.08s ease, background 0.15s ease;
+}
+.btn:active { transform: translateY(1px); }
+.btn-primary { background: var(--red); color: #fff; }
+.btn-primary:hover { background: #8B0C20; }
+.btn-outline {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.5);
+  color: #fff;
+}
+.btn-outline:hover { background: rgba(255,255,255,0.18); }
+.btn-dark { background: var(--ink); color: #fff; }
+.btn-dark:hover { background: #322820; }
+.btn-ghost {
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--ink);
+}
+.btn-ghost:hover { border-color: var(--red); color: var(--red); }
+.btn-danger { background: #8B0C20; color: #fff; }
+.btn-block { width: 100%; }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* ---------- hero ---------- */
+.hero {
+  position: relative;
+  z-index: 1;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 60px 32px 40px;
+  text-align: center;
+}
+.hero .eyebrow {
+  color: var(--red);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.2em;
+}
+.hero h2 {
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  margin: 14px 0 18px;
+}
+.hero p {
+  color: var(--text-muted);
+  max-width: 620px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* ---------- tampon d'habilitation ---------- */
+.stamp {
+  display: inline-block;
+  border: 2px dashed var(--red);
+  color: var(--red);
+  padding: 6px 14px;
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  transform: rotate(-2deg);
+  margin-bottom: 18px;
+}
+
+/* ---------- container / listes de candidatures ---------- */
+.container {
+  position: relative;
+  z-index: 1;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 40px 32px 100px;
+}
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+.section-title .num { color: var(--red); font-family: 'IBM Plex Mono', monospace; }
+.section-title h3 { font-size: 1.4rem; }
+
+.app-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 18px;
+}
+.app-card {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.app-card h4 { font-size: 1.05rem; }
+.app-card p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.5; margin: 0; flex-grow: 1; }
+.app-card .meta {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+.tag-done {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.62rem;
+  color: var(--ok);
+  border: 1px solid var(--ok);
+  padding: 2px 6px;
+  letter-spacing: 0.05em;
+}
+
+.empty-state {
+  position: relative;
+  padding: 40px;
+  text-align: center;
+  color: var(--text-muted);
+}
+
+/* ---------- login gate ---------- */
+.gate {
+  max-width: 480px;
+  margin: 90px auto;
+  padding: 40px;
+  text-align: center;
+}
+.gate h2 { font-size: 1.5rem; margin-bottom: 10px; }
+.gate p { color: var(--text-muted); margin-bottom: 26px; line-height: 1.6; }
+.discord-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #5865F2;
+  color: #fff;
+  padding: 14px 26px;
+  border-radius: var(--radius);
+  font-weight: 600;
+  text-decoration: none;
+}
+.discord-btn:hover { background: #4752C4; }
+
+/* ---------- footer : liseret bois discret ---------- */
+.site-footer {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 30px;
+  color: rgba(255,255,255,0.8);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+}
+
+.hazard {
+  position: relative;
+  z-index: 1;
+  height: 3px;
+  background: var(--red);
+  opacity: 0.85;
+}
+.hazard.thin { height: 2px; opacity: 0.5; }
+
+/* ---------- questionnaire ---------- */
+.q-shell { min-height: 100vh; }
+.q-header {
+  position: relative;
+  z-index: 1;
+  color: #fff;
+  padding: 22px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.q-header h2 { font-size: 1.1rem; color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,0.5); }
+.q-progress {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.75rem;
+  color: #fff;
+  background: var(--red);
+  padding: 3px 8px;
+}
+.q-container {
+  position: relative;
+  z-index: 1;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 44px 32px 140px;
+}
+.q-item {
+  padding: 26px;
+  margin-bottom: 18px;
+}
+.q-item .q-label {
+  font-weight: 600;
+  margin-bottom: 4px;
+  display: block;
+}
+.q-item .q-required-mark { color: var(--red); margin-left: 4px; }
+.q-item .q-type-tag {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.62rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  display: block;
+  margin-bottom: 10px;
+}
+.q-options { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; }
+.q-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid var(--line);
+  padding: 10px 14px;
+  cursor: pointer;
+  background: var(--paper-alt);
+}
+.q-option:hover { border-color: var(--red); }
+.q-option input { accent-color: var(--red); }
+.q-bool-row { display: flex; gap: 12px; margin-top: 12px; }
+.q-bool-row label {
+  flex: 1;
+  text-align: center;
+  border: 1px solid var(--line);
+  padding: 12px;
+  cursor: pointer;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.85rem;
+  background: var(--paper-alt);
+}
+.q-bool-row input { display: none; }
+.q-bool-row input:checked + span { color: var(--red); font-weight: 600; }
+textarea, input[type="text"] {
+  width: 100%;
+  border: 1px solid var(--line);
+  padding: 12px 14px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.92rem;
+  margin-top: 10px;
+  background: var(--paper-alt);
+  color: var(--ink);
+}
+textarea { min-height: 110px; resize: vertical; }
+
+.q-submit-bar {
+  position: sticky;
+  bottom: 0;
+  background: rgba(247,244,238,0.96);
+  border-top: 1px solid var(--line);
+  padding: 18px 32px;
+  display: flex;
+  justify-content: flex-end;
+  z-index: 2;
+}
+
+/* ---------- avertissement anti-fuite ---------- */
+.leave-warning {
+  position: fixed;
+  inset: 0;
+  background: rgba(28,20,13,0.94);
+  color: #fff;
+  z-index: 999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 40px;
+}
+.leave-warning.show { display: flex; }
+.leave-warning .box { max-width: 460px; }
+.leave-warning h3 { color: #FF6B6B; font-size: 1.6rem; margin-bottom: 16px; }
+.leave-warning p { color: #E4DACB; line-height: 1.6; margin-bottom: 22px; }
+.leave-warning .count { font-family: 'IBM Plex Mono', monospace; color: #FF6B6B; }
+
+/* ---------- admin ---------- */
+.admin-shell { min-height: 100vh; }
+.admin-login {
+  max-width: 380px;
+  margin: 100px auto;
+  padding: 40px;
+}
+.admin-login h2 { margin-bottom: 20px; }
+.admin-login input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  margin-bottom: 16px;
+  font-family: 'Inter', sans-serif;
+  background: var(--paper-alt);
+}
+.error-msg { color: var(--red); font-size: 0.85rem; margin-bottom: 12px; }
+
+.admin-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: #fff;
+}
+.admin-table th, .admin-table td {
+  text-align: left;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--line);
+  font-size: 0.9rem;
+}
+.admin-table th {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+}
+.status-pill {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.68rem;
+  padding: 3px 8px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.status-open { color: var(--ok); border: 1px solid var(--ok); }
+.status-closed { color: var(--text-muted); border: 1px solid var(--line); }
+.row-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.row-actions .btn { padding: 8px 12px; font-size: 0.72rem; }
+
+/* ---------- modal ---------- */
+.modal-overlay {
+  position: fixed; inset: 0;
+  background: rgba(28,20,13,0.55);
+  display: none;
+  align-items: flex-start;
+  justify-content: center;
+  overflow-y: auto;
+  z-index: 500;
+  padding: 40px 20px;
+}
+.modal-overlay.show { display: flex; }
+.modal {
+  background: #fff;
+  max-width: 640px;
+  width: 100%;
+  padding: 32px;
+}
+.modal h3 { margin-bottom: 20px; }
+.field { margin-bottom: 16px; }
+.field label {
+  display: block;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+.field input, .field textarea, .field select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  font-family: 'Inter', sans-serif;
+  background: var(--paper-alt);
+}
+.field textarea { min-height: 70px; }
+
+.question-builder-item {
+  border: 1px solid var(--line);
+  padding: 16px;
+  margin-bottom: 12px;
+  position: relative;
+  background: var(--paper-alt);
+}
+.question-builder-item .qb-row { display: flex; gap: 10px; margin-bottom: 10px; }
+.question-builder-item .qb-row select { width: auto; }
+.question-builder-item .qb-remove {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 1.1rem;
+}
+.qb-options-list { display: flex; flex-direction: column; gap: 6px; margin-top: 8px; }
+.qb-options-list input { margin-bottom: 0; }
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 24px;
+  border-top: 1px solid var(--line);
+  padding-top: 20px;
+}
+
+.checkbox-row { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; }
+.checkbox-row input { width: auto; accent-color: var(--red); }
+
+@media (max-width: 640px) {
+  .site-header { flex-direction: column; align-items: flex-start; gap: 14px; }
+  .admin-table { display: block; overflow-x: auto; }
+}
